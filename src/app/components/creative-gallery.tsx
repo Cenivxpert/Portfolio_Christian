@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
 interface GalleryItem {
@@ -13,6 +13,8 @@ export function CreativeGallery() {
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [scrollY, setScrollY] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
   // Charger les images depuis la liste JSON
   useEffect(() => {
@@ -44,12 +46,38 @@ export function CreativeGallery() {
     loadImages();
   }, []);
 
-  // Calculer les colonnes en fonction du ratio image
-  const getColSpan = (filename: string) => {
-    // Déterminer le ratio basé sur le format du filename ou dimensions aléatoires
+  // Parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Calculer les colonnes et rows pour un meilleur layout masonry
+  const getItemStyle = (index: number) => {
     const random = Math.random();
-    if (random > 0.7) return "md:col-span-2"; // 30% pour les paysages larges
-    return "md:col-span-1";
+    let rowSpan = 1;
+    let colSpan = 1;
+
+    // 40% images normales, 30% doubles, 20% plus grandes, 10% petites
+    if (random > 0.9) {
+      rowSpan = 1;
+      colSpan = 1;
+    } else if (random > 0.7) {
+      rowSpan = 2;
+      colSpan = 1;
+    } else if (random > 0.4) {
+      rowSpan = 1;
+      colSpan = 2;
+    } else {
+      rowSpan = 1;
+      colSpan = 1;
+    }
+
+    return { rowSpan, colSpan };
   };
 
   if (error) {
@@ -78,19 +106,30 @@ export function CreativeGallery() {
   }
 
   return (
-    <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-primary/5 via-background to-background">
-      <div className="max-w-7xl w-full mx-auto">
-        {/* Header */}
-        <div className="mb-16 space-y-6">
+    <section
+      ref={galleryRef}
+      className="py-24 px-6 md:px-8 lg:px-12 bg-gradient-to-b from-background via-primary/2 to-background overflow-hidden"
+    >
+      <div className="max-w-[1400px] w-full mx-auto">
+        {/* Header avec animation */}
+        <div
+          className="mb-20 space-y-6"
+          style={{
+            transform: `translateY(${scrollY * 0.2}px)`,
+            transition: "transform 0.3s ease-out",
+          }}
+        >
           <div className="w-16 h-1 bg-primary rounded-full"></div>
-          <h2 className="text-5xl md:text-6xl font-bold">Portfolio Créatif</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl">
-            {items.length} visuels créés sur Canva. Cliquez sur une création
-            pour l'agrandir.
+          <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold">
+            Portfolio Créatif
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl">
+            {items.length} visuels créés sur Canva. Explorez une collection
+            dynamique de logos, affiches et flyers. Cliquez pour agrandir.
           </p>
         </div>
 
-        {/* Gallery Grid */}
+        {/* Gallery */}
         {isLoading ? (
           <div className="flex items-center justify-center h-96">
             <p className="text-muted-foreground">Chargement des créations...</p>
@@ -102,30 +141,51 @@ export function CreativeGallery() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 auto-rows-max">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className={`${getColSpan(
-                  item.filename
-                )} group relative overflow-hidden rounded-lg border border-primary/20 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-xl hover:shadow-primary/30 bg-card`}
-                onClick={() => setSelectedItem(item)}
-              >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  loading="lazy"
-                />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[250px] md:auto-rows-[300px]">
+            {items.map((item, index) => {
+              const style = getItemStyle(index);
+              const offsetY = (index % 5) * 20;
 
-                {/* Overlay au survol */}
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-white font-semibold text-lg">Agrandir</p>
+              return (
+                <div
+                  key={item.id}
+                  className={`group relative overflow-hidden rounded-xl md:rounded-2xl border border-primary/10 hover:border-primary/50 transition-all duration-500 cursor-pointer hover:shadow-2xl hover:shadow-primary/20 bg-card backdrop-blur-sm`}
+                  style={{
+                    gridColumn: style.colSpan > 1 ? `span ${style.colSpan}` : undefined,
+                    gridRow: style.rowSpan > 1 ? `span ${style.rowSpan}` : undefined,
+                    transform: `translateY(${(scrollY * 0.05 + offsetY) % 30}px)`,
+                    transition: "all 0.3s ease-out",
+                  }}
+                  onClick={() => setSelectedItem(item)}
+                >
+                  {/* Image avec zoom au hover */}
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                    loading="lazy"
+                  />
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  {/* Overlay au survol */}
+                  <div className="absolute inset-0 flex items-end justify-start p-4 md:p-6">
+                    <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                      <p className="text-white font-semibold text-sm md:text-base line-clamp-2">
+                        {item.alt}
+                      </p>
+                      <p className="text-primary text-xs md:text-sm mt-2">
+                        Cliquez pour agrandir
+                      </p>
+                    </div>
                   </div>
+
+                  {/* Shine effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 group-hover:translate-x-full"></div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
@@ -133,17 +193,17 @@ export function CreativeGallery() {
       {/* Modal - Image agrandie */}
       {selectedItem && (
         <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-lg"
           onClick={() => setSelectedItem(null)}
         >
           <div
-            className="relative max-h-screen max-w-4xl w-full rounded-2xl overflow-hidden shadow-2xl"
+            className="relative max-h-[90vh] max-w-5xl w-full rounded-2xl overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Bouton fermer */}
             <button
               onClick={() => setSelectedItem(null)}
-              className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-2 transition-all duration-200"
+              className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-3 transition-all duration-200 hover:scale-110"
             >
               <X className="w-6 h-6" />
             </button>
@@ -152,12 +212,17 @@ export function CreativeGallery() {
             <img
               src={selectedItem.src}
               alt={selectedItem.alt}
-              className="w-full h-full object-contain max-h-screen"
+              className="w-full h-full object-contain"
             />
 
             {/* Info au bas */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-              <p className="text-lg font-semibold">{selectedItem.alt}</p>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-8 text-white">
+              <p className="text-xl md:text-2xl font-semibold">
+                {selectedItem.alt}
+              </p>
+              <p className="text-sm text-gray-300 mt-2">
+                Appuyez sur Échap ou cliquez pour fermer
+              </p>
             </div>
           </div>
         </div>
