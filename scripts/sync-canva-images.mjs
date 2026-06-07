@@ -41,11 +41,31 @@ async function main() {
   // Formats acceptés
   const acceptedFormats = [".png", ".jpg", ".jpeg", ".webp", ".gif"];
 
-  // Lire tous les fichiers
-  const files = fs.readdirSync(canvaPath);
-  const imageFiles = files.filter((file) =>
-    acceptedFormats.includes(path.extname(file).toLowerCase())
-  );
+  // Fonction récursive pour lire tous les fichiers dans les sous-dossiers
+  function getAllImages(dir, fileList = []) {
+    const files = fs.readdirSync(dir);
+
+    files.forEach((file) => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        // Récursif: chercher dans les sous-dossiers
+        getAllImages(filePath, fileList);
+      } else if (acceptedFormats.includes(path.extname(file).toLowerCase())) {
+        // Ajouter le fichier image avec son chemin complet
+        fileList.push({
+          fullPath: filePath,
+          filename: file,
+        });
+      }
+    });
+
+    return fileList;
+  }
+
+  // Obtenir toutes les images récursivement
+  const imageFiles = getAllImages(canvaPath);
 
   if (imageFiles.length === 0) {
     console.log("⚠️  Aucune image trouvée dans le dossier!");
@@ -56,25 +76,25 @@ async function main() {
 
   // Copier les images
   let copied = 0;
-  imageFiles.forEach((file) => {
-    const source = path.join(canvaPath, file);
-    const dest = path.join(publicCreativeDir, file);
+  imageFiles.forEach((fileObj) => {
+    const source = fileObj.fullPath;
+    const dest = path.join(publicCreativeDir, fileObj.filename);
 
     try {
       fs.copyFileSync(source, dest);
-      console.log(`✅ ${file}`);
+      console.log(`✅ ${fileObj.filename}`);
       copied++;
     } catch (error) {
-      console.error(`❌ Erreur: ${file}`, error.message);
+      console.error(`❌ Erreur: ${fileObj.filename}`, error.message);
     }
   });
 
   // Générer la liste JSON
-  const imagesList = imageFiles.map((file, index) => ({
+  const imagesList = imageFiles.map((fileObj, index) => ({
     id: `image-${index}`,
-    src: `/images/creative/${file}`,
-    alt: file.replace(/\.[^/.]+$/, ""),
-    filename: file,
+    src: `/images/creative/${fileObj.filename}`,
+    alt: fileObj.filename.replace(/\.[^/.]+$/, ""),
+    filename: fileObj.filename,
   }));
 
   const jsonPath = path.join(publicCreativeDir, "images-list.json");
