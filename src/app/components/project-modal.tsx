@@ -36,7 +36,7 @@ export function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
       ].join("\n"),
     );
 
-    window.location.href = `mailto:azanechristianserge@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:christseth.NO96@outlook.fr?subject=${subject}&body=${body}`;
     onClose();
   };
 
@@ -45,18 +45,18 @@ export function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   return (
     <>
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" onClick={onClose} />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[92%] max-w-lg max-h-[92vh] overflow-y-auto bg-card border border-primary/30 rounded-3xl shadow-2xl">
-        <div className="flex items-center justify-between p-5 border-b border-border/50">
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[92%] max-w-lg max-h-[90dvh] overflow-y-auto bg-card border border-primary/30 rounded-3xl shadow-2xl">
+        <div className="flex items-start justify-between gap-3 p-4 sm:p-5 border-b border-border/50">
           <div>
-            <h3 className="text-2xl font-bold">Me contacter</h3>
+            <h3 className="text-xl sm:text-2xl font-bold">Me contacter</h3>
             <p className="text-sm text-muted-foreground mt-1">Votre application email s&apos;ouvrira avec le message prérempli.</p>
           </div>
-          <button onClick={onClose} className="w-10 h-10 rounded-lg hover:bg-primary/10 flex items-center justify-center" aria-label="Fermer">
+          <button onClick={onClose} className="w-10 h-10 shrink-0 rounded-lg hover:bg-primary/10 flex items-center justify-center" aria-label="Fermer">
             <X className="w-6 h-6 text-muted-foreground" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-4">
           {[
             ["name", "Nom", "Votre nom", "text"],
             ["email", "Email", "votre@email.com", "email"],
