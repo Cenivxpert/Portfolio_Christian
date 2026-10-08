@@ -68,8 +68,8 @@ export function CreativeGallery() {
             <div className="max-w-3xl space-y-5">
               <div className="w-16 h-1 bg-primary rounded-full" />
               <p className="text-sm uppercase tracking-[0.25em] text-primary font-semibold">Creative work</p>
-              <h2 className="text-5xl md:text-6xl font-bold">Galerie visuelle</h2>
-              <p className="text-xl text-muted-foreground">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Galerie visuelle</h2>
+              <p className="text-base sm:text-xl text-muted-foreground">
                 Une sélection de créations social media, branding et supports digitaux réalisés sur différents projets.
               </p>
             </div>
@@ -83,13 +83,13 @@ export function CreativeGallery() {
           </div>
 
           {isLoading ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {[...Array(8)].map((_, index) => (
                 <div key={index} className="aspect-square rounded-2xl bg-card border border-border animate-pulse" />
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {previewItems.map((item, index) => (
                 <button
                   key={item.id}
@@ -128,7 +128,7 @@ export function CreativeGallery() {
               </button>
             </div>
 
-            <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4">
               {items.map((item) => (
                 <button
                   key={item.id}
