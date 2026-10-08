@@ -33,8 +33,8 @@ export function Services() {
       <div className="max-w-7xl w-full mx-auto space-y-16">
         <div className="max-w-3xl space-y-6">
           <div className="w-16 h-1 bg-primary rounded-full" />
-          <h2 className="text-5xl md:text-6xl font-bold">Expertise</h2>
-          <p className="text-xl text-muted-foreground">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Expertise</h2>
+          <p className="text-base sm:text-xl text-muted-foreground">
             Une approche polyvalente pour passer de l&apos;idée à un produit digital structuré, visible et maintenable.
           </p>
         </div>
@@ -43,7 +43,7 @@ export function Services() {
           {services.map((service, index) => {
             const Icon = service.icon;
             return (
-              <div key={service.title} className="group relative bg-card border border-border rounded-2xl p-8 md:p-10 space-y-6 hover:border-primary transition-all duration-500 overflow-hidden">
+              <div key={service.title} className="group relative bg-card border border-border rounded-2xl p-5 sm:p-8 md:p-10 space-y-6 hover:border-primary transition-all duration-500 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative space-y-6">
                   <div className="flex items-center justify-between">
