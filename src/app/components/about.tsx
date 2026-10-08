@@ -25,11 +25,11 @@ export function About() {
   return (
     <section className="pt-8 pb-16 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-background to-secondary/20">
       <div className="max-w-7xl w-full mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
           <div className="lg:col-span-4">
             <div className="sticky top-24 space-y-4">
               <div className="w-16 h-1 bg-primary rounded-full" />
-              <h2 className="text-5xl md:text-6xl font-bold">À propos</h2>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">À propos</h2>
               <p className="text-muted-foreground">
                 Profil hybride orienté produit, exécution technique et coordination.
               </p>
@@ -38,7 +38,7 @@ export function About() {
 
           <div className="lg:col-span-8 space-y-10">
             <div className="space-y-6">
-              <p className="text-2xl md:text-3xl leading-relaxed">
+              <p className="text-xl sm:text-2xl md:text-3xl leading-relaxed">
                 Professionnel IT et digital titulaire d&apos;un Master en gestion de projet informatique,
                 avec une pratique concrète du <span className="text-primary font-semibold">développement web,
                 de l&apos;UI/UX, de l&apos;IA et du digital</span>.
