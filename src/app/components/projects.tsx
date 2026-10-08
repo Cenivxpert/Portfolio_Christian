@@ -19,7 +19,7 @@ const projects: Array<{
   {
     client: "Ceniv Pulse",
     platform: "AI-powered Digital Presence Platform",
-    image: "/images/portfolio.png",
+    image: "/images/ceniv-pulse-dashboard.png",
     description:
       "Application SaaS en cours de développement : architecture produit, authentification Supabase, intégration GitHub, génération IA, approbations contrôlées, tests, CI et déploiements Vercel.",
     tag: "Product & AI",
@@ -76,7 +76,7 @@ const projects: Array<{
   {
     client: "MythaYun — Valex Group",
     platform: "Application web",
-    image: "/images/portfolio.png",
+    image: "/images/mythayun-travel-dashboard.png",
     description:
       "Contribution UI/UX, intégration de maquettes et développement web dans un contexte d'équipe distribuée entre le Canada et le Maroc.",
     tag: "Web Development",
@@ -87,7 +87,7 @@ const projects: Array<{
   {
     client: "SpendEase",
     platform: "Expense Management App",
-    image: "/images/portfolio.png",
+    image: "/images/spendease-dashboard.png",
     description:
       "Application de gestion de dépenses avec authentification, revenus/dépenses, catégories et intégration base de données.",
     tag: "Full Stack",
