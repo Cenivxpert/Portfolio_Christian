@@ -111,8 +111,8 @@ export function Projects() {
         <div className="max-w-3xl space-y-6">
           <div className="w-16 h-1 bg-primary rounded-full" />
           <p className="text-sm uppercase tracking-[0.25em] text-primary font-semibold">Sélection récente</p>
-          <h2 className="text-5xl md:text-6xl font-bold">Projets</h2>
-          <p className="text-xl text-muted-foreground">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Projets</h2>
+          <p className="text-base sm:text-xl text-muted-foreground">
             Des projets techniques, produit et digitaux présentés du plus récent au plus ancien.
           </p>
         </div>
