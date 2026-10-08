@@ -1,4 +1,4 @@
-import { Github, Globe2, Linkedin, Mail, MapPin, Send } from "lucide-react";
+import { Github, Globe2, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
 import { ProjectModal } from "./project-modal";
 
@@ -16,28 +16,37 @@ export function Contact() {
       <div className="max-w-7xl w-full mx-auto space-y-16">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <div className="w-16 h-1 bg-primary rounded-full mx-auto" />
-          <h2 className="text-5xl md:text-6xl font-bold">Échangeons</h2>
-          <p className="text-xl text-muted-foreground">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Échangeons</h2>
+          <p className="text-base sm:text-xl text-muted-foreground">
             Opportunité professionnelle, projet digital ou collaboration : je suis disponible à Marrakech et à distance.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 max-w-6xl mx-auto">
           <div className="space-y-8">
             <a
-              href="mailto:azanechristianserge@gmail.com"
-              className="group flex items-start gap-6 p-6 rounded-2xl bg-card border border-border hover:border-primary transition-all"
+              href="mailto:christseth.NO96@outlook.fr"
+              className="group flex items-start gap-3 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-card border border-border hover:border-primary transition-all"
             >
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
                 <Mail className="w-6 h-6 text-primary group-hover:text-primary-foreground" />
               </div>
               <div className="space-y-1 min-w-0">
                 <p className="text-sm text-muted-foreground uppercase tracking-wide">Email</p>
-                <p className="text-lg md:text-xl font-semibold break-all">azanechristianserge@gmail.com</p>
+                <p className="text-sm sm:text-lg md:text-xl font-semibold break-all">christseth.NO96@outlook.fr</p>
               </div>
             </a>
 
-            <div className="flex items-start gap-6 p-6 rounded-2xl bg-card border border-border">
+            <a href="tel:+212601058129" className="group flex items-start gap-3 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-card border border-border hover:border-primary transition-all">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors">
+                <Phone className="w-6 h-6 text-primary group-hover:text-primary-foreground" />
+              </div>
+              <div className="space-y-1 min-w-0">
+                <p className="text-sm text-muted-foreground uppercase tracking-wide">Téléphone</p>
+                <p className="text-lg sm:text-xl font-semibold">+212 601 058 129</p>
+              </div>
+            </a>
+            <div className="flex items-start gap-3 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-card border border-border">
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                 <MapPin className="w-6 h-6 text-primary" />
               </div>
@@ -66,7 +75,7 @@ export function Contact() {
 
           <div className="relative">
             <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
-            <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-3xl p-10 md:p-12 space-y-8 h-full flex flex-col justify-center">
+            <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-3xl p-6 sm:p-10 md:p-12 space-y-8 h-full flex flex-col justify-center">
               <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center">
                 <Send className="w-8 h-8 text-primary-foreground" />
               </div>
