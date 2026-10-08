@@ -27,15 +27,15 @@ export function Testimonials() {
       <div className="max-w-7xl w-full mx-auto space-y-14">
         <div className="max-w-3xl mx-auto text-center space-y-6">
           <div className="w-16 h-1 bg-primary rounded-full mx-auto" />
-          <h2 className="text-5xl md:text-6xl font-bold">Repères professionnels</h2>
-          <p className="text-xl text-muted-foreground">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Repères professionnels</h2>
+          <p className="text-base sm:text-xl text-muted-foreground">
             Des expériences concrètes qui illustrent mon évolution récente, sans témoignages génériques ni résultats inventés.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {evidence.map(({ icon: Icon, title, label, text }) => (
-            <div key={title} className="bg-card border border-border rounded-2xl p-8 space-y-5 hover:border-primary/60 transition-colors">
+            <div key={title} className="bg-card border border-border rounded-2xl p-5 sm:p-8 space-y-5 hover:border-primary/60 transition-colors">
               <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Icon className="w-6 h-6 text-primary" />
               </div>
