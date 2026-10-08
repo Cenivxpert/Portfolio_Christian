@@ -1,8 +1,8 @@
 import { Hero } from "./components/hero";
+import { Projects } from "./components/projects";
+import { Services } from "./components/services";
 import { CreativeGallery } from "./components/creative-gallery";
 import { About } from "./components/about";
-import { Services } from "./components/services";
-import { Projects } from "./components/projects";
 import { Testimonials } from "./components/testimonials";
 import { Contact } from "./components/contact";
 
@@ -10,9 +10,9 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <Hero />
-      <CreativeGallery />
-      <Services />
       <Projects />
+      <Services />
+      <CreativeGallery />
       <About />
       <Testimonials />
       <Contact />

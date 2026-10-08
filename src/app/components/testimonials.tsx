@@ -1,103 +1,55 @@
-import { Star } from "lucide-react";
+import { Bot, CheckCircle2, GraduationCap, PanelsTopLeft } from "lucide-react";
 
-const mainTestimonial = {
-  quote: "Ma collaboration avec Christian m'a permis de structurer ma présence digitale et de clarifier ma communication auprès de mon audience. Son approche professionnelle et ses contributions créatives ont vraiment fait la différence.",
-  author: "Expérience Professionnelle",
-  role: "Retours clients",
-  company: "Projets en freelance et stage",
-  rating: 5,
-};
-
-const secondaryTestimonials = [
+const evidence = [
   {
-    quote: "Communication claire, créativité et respect des délais sont ses points forts.",
-    author: "Qualités Reconnues",
-    role: "Feed-back clients",
+    icon: PanelsTopLeft,
+    title: "Produit numérique",
+    label: "Ceniv Pulse",
+    text: "Conception produit, développement React/Vite, Supabase, intégration GitHub, workflows d'approbation, tests et déploiements contrôlés.",
   },
   {
-    quote: "Capable de proposer des idées adaptées à l'identité de la marque avec autonomie et organisation.",
-    author: "Compétences",
-    role: "Professionnalisme",
+    icon: Bot,
+    title: "IA & qualité",
+    label: "AI Training",
+    text: "Évaluation de réponses IA, annotation, contrôle qualité et travail avec des critères structurés dans des environnements de projets distants.",
   },
   {
-    quote: "Son double expertise en community management et développement web est un vrai atout pour les projets digitaux.",
-    author: "Double Compétence",
-    role: "Valeur Ajoutée",
+    icon: GraduationCap,
+    title: "Transmission",
+    label: "IT & Digital Instructor",
+    text: "Préparation de contenus pédagogiques en culture numérique, développement web, gestion de projet IT et outils bureautiques.",
   },
 ];
 
 export function Testimonials() {
   return (
     <section className="pt-8 pb-16 px-6 md:px-12 lg:px-24">
-      <div className="max-w-7xl w-full mx-auto">
-        <div className="space-y-20">
-          {/* Header */}
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="space-y-6">
-              <div className="w-16 h-1 bg-primary rounded-full mx-auto"></div>
-              <h2 className="text-5xl md:text-6xl font-bold">Preuves de Collaboration</h2>
-              <p className="text-xl text-muted-foreground">
-                Les relations de confiance et les résultats mesurables sont au cœur de mon approche.
-              </p>
-            </div>
-          </div>
-          
-          {/* Main Testimonial */}
-          <div className="max-w-4xl mx-auto">
-            <div className="relative bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/20 rounded-3xl p-10 md:p-16 space-y-8">
-              {/* Decorative Quote */}
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/20">
-                <svg className="w-8 h-8 text-primary-foreground" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                </svg>
+      <div className="max-w-7xl w-full mx-auto space-y-14">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <div className="w-16 h-1 bg-primary rounded-full mx-auto" />
+          <h2 className="text-5xl md:text-6xl font-bold">Repères professionnels</h2>
+          <p className="text-xl text-muted-foreground">
+            Des expériences concrètes qui illustrent mon évolution récente, sans témoignages génériques ni résultats inventés.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {evidence.map(({ icon: Icon, title, label, text }) => (
+            <div key={title} className="bg-card border border-border rounded-2xl p-8 space-y-5 hover:border-primary/60 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Icon className="w-6 h-6 text-primary" />
               </div>
-              
-              {/* Rating */}
-              <div className="flex justify-center gap-1">
-                {[...Array(mainTestimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 fill-primary text-primary" />
-                ))}
+              <div>
+                <p className="text-sm text-primary font-semibold">{label}</p>
+                <h3 className="text-xl font-semibold mt-1">{title}</h3>
               </div>
-              
-              {/* Quote */}
-              <p className="text-xl md:text-2xl text-center leading-relaxed">
-                "{mainTestimonial.quote}"
-              </p>
-              
-              {/* Author */}
-              <div className="text-center space-y-2 pt-4">
-                <p className="text-xl font-semibold">{mainTestimonial.author}</p>
-                <p className="text-muted-foreground">
-                  {mainTestimonial.role} • {mainTestimonial.company}
-                </p>
+              <p className="text-muted-foreground leading-relaxed">{text}</p>
+              <div className="pt-4 border-t border-border flex items-center gap-2 text-sm text-muted-foreground">
+                <CheckCircle2 className="w-4 h-4 text-primary" />
+                Expérience documentée
               </div>
             </div>
-          </div>
-          
-          {/* Secondary Testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {secondaryTestimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-2xl p-8 space-y-4 hover:border-primary transition-all duration-300 group"
-              >
-                <div className="flex gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                
-                <p className="text-muted-foreground leading-relaxed italic">
-                  "{testimonial.quote}"
-                </p>
-                
-                <div className="pt-4 border-t border-border group-hover:border-primary transition-colors duration-300">
-                  <p className="font-semibold">{testimonial.author}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
     </section>

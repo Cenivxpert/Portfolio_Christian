@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Images, Maximize2, X } from "lucide-react";
 
 interface GalleryItem {
   id: string;
@@ -12,216 +12,153 @@ export function CreativeGallery() {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [galleryOpen, setGalleryOpen] = useState(false);
 
-  // Charger les images depuis la liste JSON
   useEffect(() => {
-    const loadImages = async () => {
-      try {
-        const response = await fetch("/images/creative/images-list.json");
+    fetch("/images/creative/images-list.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("Gallery list unavailable");
+        return response.json();
+      })
+      .then((imageList: GalleryItem[]) => {
+        const unique = imageList.filter(
+          (item, index, array) => array.findIndex((candidate) => candidate.src === item.src) === index,
+        );
+        setItems(unique);
+      })
+      .catch((error) => console.error("Gallery load error:", error))
+      .finally(() => setIsLoading(false));
+  }, []);
 
-        if (!response.ok) {
-          setError(
-            "Liste d'images non trouvée. Lancez d'abord le script sync-canva-images.mjs"
-          );
-          setIsLoading(false);
-          return;
-        }
-
-        const imageList: GalleryItem[] = await response.json();
-
-        // Mélanger les images aléatoirement
-        const shuffled = imageList.sort(() => Math.random() - 0.5);
-        setItems(shuffled);
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Erreur lors du chargement des images:", error);
-        setError("Erreur lors du chargement des images");
-        setIsLoading(false);
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        if (selectedItem) setSelectedItem(null);
+        else if (galleryOpen) setGalleryOpen(false);
       }
     };
 
-    loadImages();
-  }, []);
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = galleryOpen || selectedItem ? "hidden" : "";
 
-  // Fonction pour déterminer la taille de l'item basée sur l'index
-  const getItemSize = (index: number) => {
-    const sizes = ["normal", "large-height", "large-width", "small"];
-    return sizes[index % sizes.length];
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [galleryOpen, selectedItem]);
+
+  const previewItems = useMemo(() => items.slice(0, 8), [items]);
+
+  const cleanTitle = (value: string) => {
+    const cleaned = value
+      .replace(/^[0-9]+[_\s-]*/, "")
+      .replace(/[_-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!cleaned || /^\d+$/.test(cleaned)) return "Création visuelle";
+    return cleaned;
   };
-
-  const getSizeClasses = (size: string) => {
-    switch (size) {
-      case "large-height":
-        return "md:row-span-2";
-      case "large-width":
-        return "md:col-span-2";
-      case "small":
-        return "col-span-1 row-span-1";
-      default:
-        return "col-span-1";
-    }
-  };
-
-  if (error) {
-    return (
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-background via-background to-background">
-        <div className="max-w-7xl w-full mx-auto">
-          <div className="mb-16 space-y-6">
-            <div className="w-16 h-1 bg-primary rounded-full"></div>
-            <h2 className="text-5xl md:text-6xl font-bold">Créations Visuelles</h2>
-          </div>
-          <div className="bg-destructive/10 border border-destructive/50 rounded-lg p-6 text-destructive">
-            <p className="font-semibold mb-2">⚠️ {error}</p>
-            <p className="text-sm mb-4">
-              Lancez le script suivant depuis votre terminal:
-            </p>
-            <code className="bg-background p-3 rounded block text-xs overflow-x-auto mb-4">
-              node scripts/sync-canva-images.mjs
-            </code>
-            <p className="text-xs text-muted-foreground">
-              Puis rafraîchissez la page
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <>
-      {/* Section avec titre et bouton */}
-      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gradient-to-b from-background via-background to-background">
-        <div className="max-w-7xl w-full mx-auto">
-          <div className="mb-16 space-y-6">
-            <div className="w-16 h-1 bg-primary rounded-full"></div>
-            <h2 className="text-5xl md:text-6xl font-bold">Créations Visuelles</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl">
-              {items.length} visuels créés sur Canva.
-            </p>
+      <section className="py-20 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl w-full mx-auto space-y-10">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="max-w-3xl space-y-5">
+              <div className="w-16 h-1 bg-primary rounded-full" />
+              <p className="text-sm uppercase tracking-[0.25em] text-primary font-semibold">Creative work</p>
+              <h2 className="text-5xl md:text-6xl font-bold">Galerie visuelle</h2>
+              <p className="text-xl text-muted-foreground">
+                Une sélection de créations social media, branding et supports digitaux réalisés sur différents projets.
+              </p>
+            </div>
             <button
               onClick={() => setGalleryOpen(true)}
-              className="mt-8 px-8 py-4 bg-primary hover:bg-accent text-primary-foreground rounded-xl transition-all duration-300 shadow-lg shadow-primary/20 hover:shadow-xl hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary hover:bg-accent text-primary-foreground rounded-xl transition-all shadow-lg shadow-primary/20"
             >
-              Découvrir la galerie
+              <Images className="w-5 h-5" />
+              Voir la galerie complète {items.length > 0 ? `(${items.length})` : ""}
             </button>
           </div>
+
+          {isLoading ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[...Array(8)].map((_, index) => (
+                <div key={index} className="aspect-square rounded-2xl bg-card border border-border animate-pulse" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {previewItems.map((item, index) => (
+                <button
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className={`group relative overflow-hidden rounded-2xl border border-border bg-card text-left ${index === 0 || index === 5 ? "md:col-span-2" : ""}`}
+                >
+                  <div className="aspect-[4/3]">
+                    <img src={item.src} alt={item.alt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-70" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between gap-3">
+                    <p className="text-white text-sm font-medium line-clamp-2">{cleanTitle(item.alt)}</p>
+                    <Maximize2 className="w-4 h-4 text-white shrink-0" />
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* Zone Fixe - Galerie Fullscreen */}
       {galleryOpen && (
-        <div className="fixed inset-0 top-0 left-0 right-0 h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 z-40 overflow-hidden">
-          {/* Background avec effet */}
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-20"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl opacity-20"></div>
-          </div>
-
-          {/* Galerie Masonry */}
-          <div className="relative h-full w-full overflow-y-auto">
-            <div className="p-8 md:p-16">
-              {/* Header interne */}
-              <div className="mb-12 max-w-7xl mx-auto">
-                <div className="w-16 h-1 bg-primary rounded-full"></div>
-                <h2 className="text-4xl md:text-5xl font-bold text-white mt-6">
-                  Créations Visuelles
-                </h2>
-                <p className="text-gray-400 text-lg mt-4 max-w-2xl">
-                  Explorez {items.length} créations dynamiques. Cliquez pour
-                  agrandir.
-                </p>
+        <div className="fixed inset-0 z-40 bg-[#08080d]/95 backdrop-blur-xl overflow-y-auto">
+          <div className="max-w-7xl mx-auto px-5 md:px-10 py-10 md:py-16">
+            <div className="sticky top-4 z-20 mb-10 flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-black/55 backdrop-blur-xl px-5 py-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.25em] text-primary">Portfolio créatif</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-white">Galerie complète</h3>
               </div>
+              <button
+                onClick={() => setGalleryOpen(false)}
+                className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center"
+                aria-label="Fermer la galerie"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
 
-              {/* Masonry Grid */}
-              {isLoading ? (
-                <div className="flex items-center justify-center h-96">
-                  <p className="text-gray-400">Chargement des créations...</p>
-                </div>
-              ) : (
-                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]">
-                  {items.map((item, index) => {
-                    const size = getItemSize(index);
-                    const sizeClass = getSizeClasses(size);
-
-                    return (
-                      <div
-                        key={item.id}
-                        className={`${sizeClass} group relative overflow-hidden rounded-xl border border-white/10 hover:border-primary/50 transition-all duration-300 cursor-pointer hover:shadow-2xl hover:shadow-primary/40 bg-slate-800/50 backdrop-blur-sm`}
-                        onClick={() => setSelectedItem(item)}
-                      >
-                        {/* Image */}
-                        <img
-                          src={item.src}
-                          alt={item.alt}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          loading="lazy"
-                        />
-
-                        {/* Overlay sombre au hover */}
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                        {/* Texte au hover */}
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="text-center">
-                            <p className="text-white font-semibold text-sm md:text-base">
-                              Cliquez pour agrandir
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+            <div className="columns-2 md:columns-3 lg:columns-4 gap-4">
+              {items.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className="group relative w-full mb-4 break-inside-avoid overflow-hidden rounded-2xl border border-white/10 bg-slate-900"
+                >
+                  <img src={item.src} alt={item.alt} className="w-full h-auto block group-hover:scale-[1.02] transition-transform duration-300" loading="lazy" />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors" />
+                  <Maximize2 className="absolute right-3 top-3 w-4 h-4 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+              ))}
             </div>
           </div>
-
-          {/* Bouton Fermer */}
-          <button
-            onClick={() => setGalleryOpen(false)}
-            className="absolute top-8 right-8 z-50 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-all duration-200 backdrop-blur-sm"
-          >
-            <X className="w-6 h-6" />
-          </button>
         </div>
       )}
 
-      {/* Modal - Image agrandie */}
       {selectedItem && (
         <div
-          className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-lg"
+          className="fixed inset-0 z-50 bg-black/92 backdrop-blur-xl flex items-center justify-center p-4 md:p-8"
           onClick={() => setSelectedItem(null)}
         >
-          <div
-            className="relative max-h-[90vh] max-w-5xl w-full rounded-2xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Bouton fermer */}
+          <div className="relative max-w-6xl max-h-[92vh] w-full flex items-center justify-center" onClick={(event) => event.stopPropagation()}>
+            <img src={selectedItem.src} alt={selectedItem.alt} className="max-h-[88vh] max-w-full object-contain rounded-2xl shadow-2xl" />
             <button
               onClick={() => setSelectedItem(null)}
-              className="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black/80 text-white rounded-full p-3 transition-all duration-200 hover:scale-110"
+              className="absolute top-3 right-3 w-11 h-11 rounded-full bg-black/65 hover:bg-black/85 text-white flex items-center justify-center"
+              aria-label="Fermer l'image"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5" />
             </button>
-
-            {/* Image agrandie */}
-            <img
-              src={selectedItem.src}
-              alt={selectedItem.alt}
-              className="w-full h-full object-contain"
-            />
-
-            {/* Info au bas */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 md:p-8 text-white">
-              <p className="text-xl md:text-2xl font-semibold">
-                {selectedItem.alt}
-              </p>
-              <p className="text-sm text-gray-300 mt-2">
-                Appuyez sur Échap ou cliquez pour fermer
-              </p>
-            </div>
           </div>
         </div>
       )}
