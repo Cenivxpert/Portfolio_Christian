@@ -1,5 +1,6 @@
 import { Github, Globe2, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useState } from "react";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { ProjectModal } from "./project-modal";
 
 export function Contact() {
@@ -8,7 +9,7 @@ export function Contact() {
   const socialLinks = [
     { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/christian-serge-azane-7476b9227" },
     { icon: Github, label: "GitHub", href: "https://github.com/Cenivxpert" },
-    { icon: Phone, label: "WhatsApp Business", href: "https://wa.me/212601058129" },
+    { icon: WhatsAppIcon, label: "WhatsApp Business", href: "https://wa.me/212601058129" },
     { icon: Globe2, label: "CENIV", href: "https://ceniv.vercel.app" },
   ];
 
