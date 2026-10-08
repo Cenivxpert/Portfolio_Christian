@@ -50,7 +50,7 @@ const projects: Array<{
   {
     client: "CENIV — Design, Digital & Communication",
     platform: "Site & présence digitale",
-    image: "/images/ceniv_affiche_story.jpg",
+    image: "/images/ceniv_digital_presence.png",
     description:
       "Création d'une marque digitale et développement d'un site web avec React, Vite et Tailwind CSS, complétés par des supports de communication et une présence multi-canal.",
     tag: "Design & Dev",
