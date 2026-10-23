@@ -10,12 +10,25 @@ const projects: Array<{
   client: string;
   platform: string;
   image: string;
+  imageFit?: "contain";
   description: string;
   tag: string;
   period: string;
   stack: string[];
   links: ProjectLink[];
 }> = [
+  {
+    client: "Ceniv Édition",
+    platform: "Édition numérique • Catalogue bilingue",
+    image: "https://ceniv-editions.vercel.app/assets/ceniv-social-v5.png",
+    imageFit: "contain",
+    description:
+      "Création d’une marque d’édition numérique et d’un catalogue bilingue français/anglais : mini-guides pratiques, identité visuelle, extraits PDF et déploiement Vercel. Première collection consacrée au mariage ; intégration du paiement en préparation.",
+    tag: "Web & Digital Publishing",
+    period: "2026",
+    stack: ["HTML", "CSS", "JavaScript", "PDF", "Vercel"],
+    links: [{ label: "Découvrir le site", href: "https://ceniv-editions.vercel.app/" }],
+  },
   {
     client: "Ceniv Pulse",
     platform: "AI-powered Digital Presence Platform",
@@ -123,14 +136,16 @@ export function Projects() {
               key={project.client}
               className="group bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/60 transition-all duration-500 hover:-translate-y-1"
             >
-              <div className="relative h-64 md:h-72 overflow-hidden bg-gradient-to-br from-primary/10 to-accent/10">
+              <div className={`relative h-64 md:h-72 overflow-hidden ${project.imageFit === "contain" ? "bg-white" : "bg-gradient-to-br from-primary/10 to-accent/10"}`}>
                 <img
                   src={project.image}
                   alt={project.client}
-                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+                  className={`w-full h-full ${project.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-[1.03] transition-transform duration-700`}
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                {project.imageFit !== "contain" && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+                )}
                 <div className="absolute top-4 left-4 bg-primary/90 px-4 py-2 rounded-full text-xs font-medium text-primary-foreground">
                   {project.tag}
                 </div>
