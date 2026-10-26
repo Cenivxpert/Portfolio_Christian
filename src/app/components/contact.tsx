@@ -10,7 +10,7 @@ export function Contact() {
     { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/christian-serge-azane-7476b9227" },
     { icon: Github, label: "GitHub", href: "https://github.com/Cenivxpert" },
     { icon: WhatsAppIcon, label: "WhatsApp Business", href: "https://wa.me/212601058129" },
-    { icon: Globe2, label: "CENIV", href: "https://ceniv.vercel.app" },
+    { icon: Globe2, label: "CENIV", href: "https://cenivxpert.com" },
   ];
 
   return (
