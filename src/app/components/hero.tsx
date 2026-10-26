@@ -15,9 +15,9 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[100dvh] flex items-center justify-center px-5 sm:px-6 md:px-12 lg:px-24 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-      <div className="absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+      <div className="pointer-events-none absolute top-20 right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+      <div className="pointer-events-none absolute bottom-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center py-12 sm:py-20">
         <div className="min-w-0 space-y-7 sm:space-y-10">
@@ -72,9 +72,9 @@ export function Hero() {
 
         <div className="relative flex justify-center lg:justify-end">
           <div className="relative w-full max-w-sm lg:max-w-lg">
-            <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
+            <div className="pointer-events-none absolute -inset-4 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-primary/20 shadow-2xl bg-card">
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
               <img
                 src="/images/profile.png"
                 alt="Christian Serge Azane"

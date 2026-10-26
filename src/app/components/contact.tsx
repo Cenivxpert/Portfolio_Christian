@@ -76,7 +76,7 @@ export function Contact() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
+            <div className="pointer-events-none absolute -inset-2 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl" />
             <div className="relative bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-3xl p-6 sm:p-10 md:p-12 space-y-8 h-full flex flex-col justify-center">
               <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center">
                 <Send className="w-8 h-8 text-primary-foreground" />
