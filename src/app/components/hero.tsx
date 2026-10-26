@@ -6,11 +6,11 @@ export function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const scrollToProjects = () => {
-    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("projects")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
 
   const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("contact")?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
 
   return (

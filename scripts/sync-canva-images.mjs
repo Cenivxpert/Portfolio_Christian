@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import fs from "fs";
+import { execFileSync } from "node:child_process";
 import path from "path";
 import { fileURLToPath } from "url";
 import readline from "readline";
@@ -99,6 +100,8 @@ async function main() {
 
   const jsonPath = path.join(publicCreativeDir, "images-list.json");
   fs.writeFileSync(jsonPath, JSON.stringify(imagesList, null, 2));
+
+  execFileSync(process.env.PYTHON || "python", [path.join(projectRoot, "scripts/optimize-gallery.py")], { stdio: "inherit" });
 
   console.log(`\n✨ Succès!\n`);
   console.log(`📤 ${copied} image(s) copiée(s)`);

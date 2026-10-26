@@ -23,7 +23,7 @@ const projects: Array<{
     image: "https://ceniv-editions.cenivxpert.com/assets/ceniv-social-v5.png",
     imageFit: "contain",
     description:
-      "Création d’une marque d’édition numérique et d’un catalogue bilingue français/anglais : mini-guides pratiques, identité visuelle, extraits PDF et déploiement Vercel. Première collection consacrée au mariage ; intégration du paiement en préparation.",
+      "Création d’une marque d’édition numérique et d’un catalogue bilingue français/anglais : mini-guides pratiques, identité visuelle, extraits PDF et déploiement Vercel. Collections consacrées au mariage et aux séjours à Marrakech ; parcours de vente en validation avant ouverture.",
     tag: "Web & Digital Publishing",
     period: "2026",
     stack: ["HTML", "CSS", "JavaScript", "PDF", "Vercel"],
@@ -146,10 +146,10 @@ export function Projects() {
                 {project.imageFit !== "contain" && (
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 )}
-                <div className="absolute top-4 left-4 bg-primary/90 px-4 py-2 rounded-full text-xs font-medium text-primary-foreground">
+                <div className="absolute top-4 left-4 max-w-[55%] bg-primary/90 px-4 py-2 rounded-full text-xs font-medium text-primary-foreground">
                   {project.tag}
                 </div>
-                <div className="absolute top-4 right-4 bg-card/90 border border-border px-4 py-2 rounded-full text-xs">
+                <div className="absolute bottom-4 right-4 max-w-[40%] bg-card/90 border border-border px-4 py-2 rounded-full text-xs">
                   {project.period}
                 </div>
               </div>

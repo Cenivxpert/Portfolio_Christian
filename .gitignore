@@ -31,3 +31,8 @@ dist-ssr
 
 # Vercel
 .vercel
+
+# Generated checks
+test-results/
+playwright-report/
+__pycache__/

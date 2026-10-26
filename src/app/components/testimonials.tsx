@@ -29,7 +29,7 @@ export function Testimonials() {
           <div className="w-16 h-1 bg-primary rounded-full mx-auto" />
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold">Repères professionnels</h2>
           <p className="text-base sm:text-xl text-muted-foreground">
-            Des expériences concrètes qui illustrent mon évolution récente, sans témoignages génériques ni résultats inventés.
+            Des expériences en développement produit, qualité des contenus IA et transmission des compétences numériques.
           </p>
         </div>
 

@@ -1,4 +1,5 @@
-import { Mail, X } from "lucide-react";
+import { AccessibleModal } from "./accessible-modal";
+import { Mail } from "lucide-react";
 import { useState } from "react";
 
 interface ProjectModalProps {
@@ -40,22 +41,7 @@ export function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
     onClose();
   };
 
-  if (!isOpen) return null;
-
-  return (
-    <>
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40" onClick={onClose} />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[92%] max-w-lg max-h-[90dvh] overflow-y-auto bg-card border border-primary/30 rounded-3xl shadow-2xl">
-        <div className="flex items-start justify-between gap-3 p-4 sm:p-5 border-b border-border/50">
-          <div>
-            <h3 className="text-xl sm:text-2xl font-bold">Me contacter</h3>
-            <p className="text-sm text-muted-foreground mt-1">Votre application email s&apos;ouvrira avec le message prérempli.</p>
-          </div>
-          <button onClick={onClose} className="w-10 h-10 shrink-0 rounded-lg hover:bg-primary/10 flex items-center justify-center" aria-label="Fermer">
-            <X className="w-6 h-6 text-muted-foreground" />
-          </button>
-        </div>
-
+  return <AccessibleModal open={isOpen} onClose={onClose} title="Me contacter" description="Votre application email s’ouvrira avec le message prérempli. Vous devrez ensuite l’envoyer.">
         <form onSubmit={handleSubmit} className="p-4 sm:p-5 space-y-4">
           {[
             ["name", "Nom", "Votre nom", "text"],
@@ -97,7 +83,9 @@ export function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             Préparer l&apos;email
           </button>
         </form>
+      <div className="mt-4 flex flex-wrap gap-4 text-sm">
+        <a className="underline" href="mailto:christseth.NO96@outlook.fr">Ouvrir un email</a>
+        <a className="underline" href="https://wa.me/212601058129" target="_blank" rel="noopener noreferrer">WhatsApp Business</a>
       </div>
-    </>
-  );
+    </AccessibleModal>;
 }

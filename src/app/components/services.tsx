@@ -29,7 +29,7 @@ const services = [
 
 export function Services() {
   return (
-    <section className="pt-8 pb-16 px-6 md:px-12 lg:px-24">
+    <section id="expertise" className="pt-8 pb-16 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl w-full mx-auto space-y-16">
         <div className="max-w-3xl space-y-6">
           <div className="w-16 h-1 bg-primary rounded-full" />

@@ -1,3 +1,9 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+section[id] { scroll-margin-top: 5rem; }
+:where(a, button, input, textarea):focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

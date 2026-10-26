@@ -7,7 +7,12 @@
     "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "sync-canva": "node scripts/sync-canva-images.mjs"
+    "sync-canva": "node scripts/sync-canva-images.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:assets": "node scripts/check-assets.mjs",
+    "check": "npm run typecheck && npm run check:assets && npm test && npm run build",
+    "test": "vitest run",
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -65,11 +70,19 @@
     "vaul": "1.1.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "4.1.12",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^25.0.10",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "4.7.0",
+    "jsdom": "^26.1.0",
     "tailwindcss": "4.1.12",
-    "vite": "^6.4.1"
+    "typescript": "^7.0.2",
+    "vite": "^6.4.1",
+    "vitest": "^3.2.7"
   },
   "peerDependencies": {
     "react": "18.3.1",
@@ -81,11 +94,6 @@
     },
     "react-dom": {
       "optional": true
-    }
-  },
-  "pnpm": {
-    "overrides": {
-      "vite": "6.3.5"
     }
   }
 }
