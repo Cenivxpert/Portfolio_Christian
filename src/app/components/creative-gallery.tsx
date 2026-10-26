@@ -20,11 +20,18 @@ export function CreativeGallery() {
     return () => controller.abort();
   }, [attempt]);
   const grid = (list: GalleryItem[]) => <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    {list.map((item) => <button key={item.id} onClick={() => setSelected(item)} className="overflow-hidden rounded-2xl border border-border text-left" aria-label={`Agrandir : ${item.alt}`}>
+    {list.map((item) => <button data-gallery-id={item.id} key={item.id} onClick={() => setSelected(item)} className="overflow-hidden rounded-2xl border border-border text-left" aria-label={`Agrandir : ${item.alt}`}>
       <img src={item.thumbnail} alt={item.alt} loading="lazy" decoding="async" width="640" height="640" className="w-full aspect-square object-cover" />
       <p className="p-3 text-sm line-clamp-2">{item.alt}</p>
     </button>)}
   </div>;
+  const closeGallery = () => {
+    if (selected) {
+      const id = selected.id;
+      setSelected(null);
+      if (open) requestAnimationFrame(() => document.querySelector<HTMLElement>(`[role="dialog"] [data-gallery-id="${id}"]`)?.focus());
+    } else setOpen(false);
+  };
   return <>
     <section id="gallery" className="py-20 px-6 md:px-12 lg:px-24">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -35,9 +42,8 @@ export function CreativeGallery() {
         {status === "ready" && (items.length ? <>{grid(items.slice(0, 8))}<button className="rounded-xl bg-primary text-primary-foreground px-6 py-3" onClick={() => setOpen(true)}>Voir la galerie complète ({items.length})</button></> : <p>Aucune création disponible pour le moment.</p>)}
       </div>
     </section>
-    <AccessibleModal open={open} onClose={() => setOpen(false)} title="Galerie complète" description="Sélectionnez une création pour l’agrandir." wide>{grid(items)}</AccessibleModal>
-    <AccessibleModal open={!!selected} onClose={() => setSelected(null)} title={selected?.alt || "Création visuelle"} wide>
-      {selected && <img src={selected.src} alt={selected.alt} className="max-h-[70dvh] w-full object-contain" />}
+    <AccessibleModal open={open || !!selected} onClose={closeGallery} title={selected?.alt || "Galerie complète"} description={selected ? "Appuyez sur Échap pour revenir à la galerie." : "Sélectionnez une création pour l’agrandir."} wide>
+      {selected ? <img src={selected.src} alt={selected.alt} className="max-h-[70dvh] w-full object-contain" /> : grid(items)}
     </AccessibleModal>
   </>;
 }
