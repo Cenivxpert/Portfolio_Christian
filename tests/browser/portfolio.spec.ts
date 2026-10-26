@@ -12,8 +12,10 @@ for (const width of [320, 390, 768, 1440]) {
     await page.keyboard.press('Escape');
     await expect(contact).toBeHidden();
     await page.getByRole('button', { name: /Voir la galerie complète/ }).click();
-    await page.getByRole('dialog', { name: 'Galerie complète' }).getByRole('button', { name: /Agrandir/ }).first().click();
-    await expect(page.getByRole('dialog')).toHaveCount(1);
+    const entry = page.getByRole('dialog', { name: 'Galerie complète' }).getByRole('button', { name: /Agrandir/ }).first();
+    const title = (await entry.getAttribute('aria-label'))!.replace(/^Agrandir : /, '');
+    await entry.click();
+    await expect(page.getByRole('dialog', { name: title, exact: true })).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(page.getByRole('dialog', { name: 'Galerie complète' })).toBeVisible();
     await page.keyboard.press('Escape');
