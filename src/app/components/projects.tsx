@@ -20,14 +20,14 @@ const projects: Array<{
   {
     client: "Ceniv Édition",
     platform: "Édition numérique • Catalogue bilingue",
-    image: "https://ceniv-editions.vercel.app/assets/ceniv-social-v5.png",
+    image: "https://ceniv-editions.cenivxpert.com/assets/ceniv-social-v5.png",
     imageFit: "contain",
     description:
       "Création d’une marque d’édition numérique et d’un catalogue bilingue français/anglais : mini-guides pratiques, identité visuelle, extraits PDF et déploiement Vercel. Première collection consacrée au mariage ; intégration du paiement en préparation.",
     tag: "Web & Digital Publishing",
     period: "2026",
     stack: ["HTML", "CSS", "JavaScript", "PDF", "Vercel"],
-    links: [{ label: "Découvrir le site", href: "https://ceniv-editions.vercel.app/" }],
+    links: [{ label: "Découvrir le site", href: "https://ceniv-editions.cenivxpert.com/" }],
   },
   {
     client: "Ceniv Pulse",
@@ -39,7 +39,7 @@ const projects: Array<{
     period: "2026 — présent",
     stack: ["React", "Vite", "Supabase", "GitHub", "Vercel", "Agile/Scrum"],
     links: [
-      { label: "Voir l'application", href: "https://cenivai.vercel.app" },
+      { label: "Voir l'application", href: "https://ceniv-pulse.cenivxpert.com" },
       { label: "GitHub", href: "https://github.com/Cenivxpert/ceniv", icon: "github" },
     ],
   },
@@ -69,7 +69,7 @@ const projects: Array<{
     tag: "Design & Dev",
     period: "Depuis 2025",
     stack: ["React", "Vite", "Tailwind", "EmailJS", "Vercel"],
-    links: [{ label: "Site déployé", href: "https://ceniv.vercel.app" }],
+    links: [{ label: "Site déployé", href: "https://cenivxpert.com" }],
   },
   {
     client: "TikTak Livraison",
