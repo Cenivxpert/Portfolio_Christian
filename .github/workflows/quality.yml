@@ -18,7 +18,7 @@ jobs:
       - name: Dependency security audit (diagnostic)
         run: |
           npm audit --json > npm-audit.json || true
-          node -e 'const fs=require("fs"); const r=JSON.parse(fs.readFileSync("npm-audit.json","utf8")); console.log("AUDIT SUMMARY", JSON.stringify(r.metadata?.vulnerabilities || {})); for(const [k,v] of Object.entries(r.vulnerabilities||{})) console.log("AUDIT ITEM", JSON.stringify({package:k,severity:v.severity,range:v.range,isDirect:v.isDirect,via:v.via,fixAvailable:v.fixAvailable}));
+          node -p "JSON.stringify({summary:require('./npm-audit.json').metadata.vulnerabilities,items:Object.entries(require('./npm-audit.json').vulnerabilities).map(([name,v])=>({name,severity:v.severity,isDirect:v.isDirect,range:v.range,via:v.via,fixAvailable:v.fixAvailable}))})"
       - run: npm run check
       - run: npx playwright install chromium
       - run: npm run test:browser
