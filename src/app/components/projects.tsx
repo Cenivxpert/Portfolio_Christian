@@ -143,6 +143,12 @@ export function Projects() {
                   className={`w-full h-full ${project.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-[1.03] transition-transform duration-700`}
                   loading="lazy"
                 />
+                {project.client === "Ceniv Édition" && (
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-[5%] left-[5%] h-[10%] w-[68%] bg-white"
+                  />
+                )}
                 {project.imageFit !== "contain" && (
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
                 )}
