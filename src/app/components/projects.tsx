@@ -20,7 +20,7 @@ const projects: Array<{
   {
     client: "Ceniv Édition",
     platform: "Édition numérique • Catalogue bilingue",
-    image: "https://ceniv-editions.cenivxpert.com/assets/ceniv-social-v5.png",
+    image: "/images/ceniv-edition-card-clean.svg",
     imageFit: "contain",
     description:
       "Création et lancement progressif d’une boutique de guides numériques bilingues français/anglais : identité visuelle, pages produits, contenus de présentation, expérience de compte et bibliothèque personnelle. Parcours d’achat et validation finale en cours.",
