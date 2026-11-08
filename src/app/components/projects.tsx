@@ -23,7 +23,7 @@ const projects: Array<{
     image: "https://ceniv-editions.cenivxpert.com/assets/ceniv-social-v5.png",
     imageFit: "contain",
     description:
-      "Création d’une marque d’édition numérique et d’un catalogue bilingue français/anglais : mini-guides pratiques, identité visuelle, extraits PDF et déploiement Vercel. Collections consacrées au mariage et aux séjours à Marrakech ; parcours de vente en validation avant ouverture.",
+      "Création et lancement progressif d’une boutique de guides numériques bilingues français/anglais : identité visuelle, pages produits, contenus de présentation, expérience de compte et bibliothèque personnelle. Parcours d’achat et validation finale en cours.",
     tag: "Web & Digital Publishing",
     period: "2026",
     stack: ["HTML", "CSS", "JavaScript", "PDF", "Vercel"],
@@ -34,7 +34,7 @@ const projects: Array<{
     platform: "AI-powered Digital Presence Platform",
     image: "/images/ceniv-pulse-dashboard.png",
     description:
-      "Application SaaS en cours de développement : architecture produit, authentification Supabase, intégration GitHub, génération IA, approbations contrôlées, tests, CI et déploiements Vercel.",
+      "Plateforme SaaS IA : version privée V0.1 validée et évolution V0.2 testée. Authentification Supabase, intégration GitHub, modules de marque/identité, approbations, tests automatisés, CI et déploiements Vercel.",
     tag: "Product & AI",
     period: "2026 — présent",
     stack: ["React", "Vite", "Supabase", "GitHub", "Vercel", "Agile/Scrum"],
@@ -76,10 +76,10 @@ const projects: Array<{
     platform: "Application & réseaux sociaux",
     image: "/images/tiktak_insta.png",
     description:
-      "Community management, création de contenus digitaux et accompagnement de la visibilité d'une application de livraison à domicile.",
+      "Gestion des réseaux sociaux et de la visibilité organique d’une application de livraison : création de contenus, identité de marque, publications et animation de communauté.",
     tag: "Community Mgmt",
     period: "2025 — présent",
-    stack: ["Content", "Canva", "Instagram", "TikTok"],
+    stack: ["Community Management", "Canva", "Instagram", "TikTok", "Organic Growth"],
     links: [
       { label: "App Store", href: "https://apps.apple.com/es/app/tiktak-livraison-à-domicile/id6740292789?l=en-GB", icon: "app" },
       { label: "Instagram", href: "https://www.instagram.com/tiktakservice2025" },
