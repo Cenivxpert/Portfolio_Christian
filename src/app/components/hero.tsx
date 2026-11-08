@@ -76,9 +76,9 @@ export function Hero() {
             <div className="relative aspect-[3/4] rounded-3xl overflow-hidden border border-primary/20 shadow-2xl bg-card">
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
               <img
-                src="/images/profile-residence-2026.jpg"
+                src="/images/profile-temporary-black-orange-2026.png"
                 alt="Christian Serge Azane"
-                className="w-full h-full object-cover object-[center_35%] brightness-95 contrast-[1.04]"
+                className="w-full h-full object-cover object-center"
               />
             </div>
 
