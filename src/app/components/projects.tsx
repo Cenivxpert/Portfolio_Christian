@@ -137,16 +137,26 @@ export function Projects() {
               className="group bg-card border border-border rounded-3xl overflow-hidden hover:border-primary/60 transition-all duration-500 hover:-translate-y-1"
             >
               <div className={`relative h-64 md:h-72 overflow-hidden ${project.imageFit === "contain" ? "bg-white" : "bg-gradient-to-br from-primary/10 to-accent/10"}`}>
-                <img
-                  src={project.image}
-                  alt={project.client}
-                  className={`w-full h-full ${project.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-[1.03] transition-transform duration-700`}
-                  loading="lazy"
-                />
-                {project.client === "Ceniv Édition" && (
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute bottom-[5%] left-[5%] h-[10%] w-[68%] bg-white"
+                {project.client === "Ceniv Édition" ? (
+                  <div role="img" aria-label="Ceniv Édition — des guides pour les moments qui comptent" className="flex h-full flex-col justify-center items-center bg-white px-5 pt-8 pb-10 text-center">
+                    <div className="flex items-center gap-3 sm:gap-5">
+                      <img src="/images/ceniv_caméo_remove-bg.png" alt="" className="h-16 w-16 sm:h-20 sm:w-20 object-contain" loading="lazy" />
+                      <div className="flex flex-col items-start text-slate-900">
+                        <span className="text-2xl sm:text-3xl font-bold tracking-tight">CENIV</span>
+                        <span className="text-xl italic font-serif">Édition</span>
+                      </div>
+                    </div>
+                    <div className="mt-5 h-px w-4/5 bg-slate-200" />
+                    <p className="mt-4 font-serif text-lg sm:text-xl text-emerald-950">Des guides pour les moments qui comptent.</p>
+                    <p className="mt-1 text-xs sm:text-sm text-slate-500">Mini-guides pratiques · Fiches imprimables · Français &amp; English</p>
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-emerald-800" />
+                  </div>
+                ) : (
+                  <img
+                    src={project.image}
+                    alt={project.client}
+                    className={`w-full h-full ${project.imageFit === "contain" ? "object-contain" : "object-cover"} group-hover:scale-[1.03] transition-transform duration-700`}
+                    loading="lazy"
                   />
                 )}
                 {project.imageFit !== "contain" && (
