@@ -15,6 +15,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Dependency security audit
+        run: npm audit --audit-level=low
       - run: npm run check
       - run: npx playwright install chromium
       - run: npm run test:browser
