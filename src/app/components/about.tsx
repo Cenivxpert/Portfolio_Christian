@@ -50,6 +50,20 @@ export function About() {
               </p>
             </div>
 
+            <div className="rounded-2xl border border-primary/25 bg-primary/5 p-6 space-y-3">
+              <h3 className="text-xl font-semibold">Communication digitale &amp; réseaux sociaux</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Expérience concrète en gestion de contenus pour plusieurs marques et profils dirigeants :
+                Orchid Island Real Estate, TikTak Livraison, El Shammah Cosmetics et Clermont School of Business.
+                Mes missions couvrent la planification éditoriale, la création de visuels, la publication
+                multicanale, la veille concurrentielle et l’optimisation de contenus SEO.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Spécialisation en visibilité organique ; publicité payante et automatisations marketing avancées
+                en cours de développement.
+              </p>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {pillars.map((pillar) => (
                 <div key={pillar.title} className="rounded-2xl border border-border bg-card p-6 space-y-4 hover:border-primary/50 transition-colors">
